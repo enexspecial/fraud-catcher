@@ -156,12 +156,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Description |
 |---------|------|-------------|
-| 1.0.0 | 2025-01-08 | Initial stable release with 9 algorithms |
-| 0.9.0 | 2025-01-03 | Development version with core functionality |
-| 0.8.0 | 2024-12-30 | Architecture improvements and plugin system |
-| 0.7.0 | 2024-12-26 | Advanced algorithms (ML, Behavioral, Network) |
-| 0.6.0 | 2024-12-23 | Core algorithms (Velocity, Amount, Location) |
-| 0.5.0 | 2024-12-20 | Project initialization and setup |
+| 1.0.0 | 2025-09-15 | Initial stable release with 9 algorithms |
+| 0.9.0 | 2025-08-16 | Development version with core functionality |
+| 0.8.0 | 2025-08-11 | Architecture improvements and plugin system |
+| 0.7.0 | 2025-08-07 | Advanced algorithms (ML, Behavioral, Network) |
+| 0.6.0 | 2025-07-15 | Core algorithms (Velocity, Amount, Location) |
+| 0.5.0 | 2025-07-01 | Project initialization and setup |
 
 ## Migration Guide
 
