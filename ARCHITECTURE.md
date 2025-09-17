@@ -2,7 +2,7 @@
 
 ## Overview
 
-FraudCatcher is a comprehensive fraud detection library designed to work across multiple platforms (Node.js and Python) while sharing core detection logic. The architecture is built with modularity, extensibility, and performance in mind.
+FraudCatcher is a comprehensive fraud detection library designed to work across multiple platforms (Node.js and Python) while sharing core detection logic. The architecture is built with modularity, extensibility, and performance in mind using modern design patterns including plugin architecture, dependency injection, event-driven design, and comprehensive caching.
 
 ## Core Architecture
 
@@ -17,8 +17,27 @@ core/
 ├── algorithms/
 │   ├── VelocityAlgorithm.ts    # Transaction velocity detection
 │   ├── AmountAlgorithm.ts      # Amount-based fraud detection
-│   └── LocationAlgorithm.ts    # Location-based fraud detection
-└── FraudDetector.ts            # Main orchestrator class
+│   ├── LocationAlgorithm.ts    # Location-based fraud detection
+│   ├── DeviceAlgorithm.ts      # Device fingerprinting
+│   ├── TimeAlgorithm.ts        # Time-based analysis
+│   ├── MerchantAlgorithm.ts    # Merchant risk scoring
+│   ├── BehavioralAlgorithm.ts  # Behavioral analysis
+│   ├── NetworkAlgorithm.ts     # Network security analysis
+│   └── MLAlgorithm.ts          # Machine learning integration
+├── interfaces/
+│   └── IFraudAlgorithm.ts      # Algorithm interface for plugins
+├── events/
+│   └── FraudEventBus.ts        # Event-driven architecture
+├── container/
+│   └── ServiceContainer.ts     # Dependency injection container
+├── cache/
+│   └── CacheManager.ts         # Intelligent caching system
+├── metrics/
+│   └── MetricsCollector.ts     # Performance monitoring
+├── plugins/
+│   └── PluginManager.ts        # Plugin system management
+├── FraudDetector.ts            # Legacy orchestrator class
+└── FraudDetectorV2.ts          # Enhanced orchestrator with new architecture
 ```
 
 ### Package Structure
@@ -222,6 +241,93 @@ pip install fraud-catcher
 - **Configurable Levels**: Debug, info, warn, error
 - **Performance Metrics**: Built-in performance tracking
 
+## New Architecture Features (V2)
+
+### Plugin-Based Architecture
+- **IFraudAlgorithm Interface**: Standardized algorithm interface
+- **Plugin Manager**: Dynamic plugin loading and management
+- **Hot Swapping**: Add/remove algorithms without restart
+- **Dependency Management**: Plugin dependency resolution
+
+### Event-Driven Design
+- **FraudEventBus**: Centralized event system
+- **Event Types**: Transaction analyzed, algorithm executed, rule triggered
+- **Event Listeners**: Subscribe to fraud detection events
+- **Async Processing**: Non-blocking event handling
+
+### Dependency Injection
+- **ServiceContainer**: Centralized service management
+- **Service Registration**: Register services with lifecycle management
+- **Singleton Support**: Efficient resource management
+- **Plugin Integration**: Seamless plugin service registration
+
+### Intelligent Caching
+- **CacheManager**: Multi-level caching system
+- **TTL Support**: Time-to-live cache entries
+- **LRU Eviction**: Least recently used eviction policy
+- **Cache Metrics**: Cache hit/miss monitoring
+
+### Performance Monitoring
+- **MetricsCollector**: Comprehensive metrics collection
+- **Counter Metrics**: Event counting and tracking
+- **Histogram Metrics**: Performance distribution analysis
+- **Gauge Metrics**: Real-time value monitoring
+
+### Enhanced Configuration
+- **Runtime Updates**: Update rules without restart
+- **Parallel Processing**: Concurrent algorithm execution
+- **Configurable Concurrency**: Control parallel execution limits
+- **Dynamic Rule Management**: Add/remove rules at runtime
+
+## Usage Examples
+
+### Basic Usage with V2 Architecture
+```typescript
+import { FraudDetectorV2 } from './core/FraudDetectorV2';
+
+const detector = new FraudDetectorV2({
+  rules: ['velocity', 'amount', 'location'],
+  thresholds: {
+    velocity: 0.7,
+    amount: 0.8,
+    location: 0.6
+  },
+  globalThreshold: 0.7,
+  enableCaching: true,
+  enableMetrics: true,
+  enableEvents: true,
+  parallelProcessing: true
+});
+
+const result = await detector.analyzeTransaction(transaction);
+```
+
+### Plugin Registration
+```typescript
+import { PluginManager } from './core/plugins/PluginManager';
+import { VelocityPlugin } from './plugins/VelocityPlugin';
+
+const pluginManager = new PluginManager(container);
+pluginManager.registerPlugin(new VelocityPlugin());
+```
+
+### Event Handling
+```typescript
+import { FraudEventBus } from './core/events/FraudEventBus';
+
+const eventBus = FraudEventBus.getInstance();
+eventBus.onTransactionAnalyzed((event) => {
+  console.log('Transaction analyzed:', event.data.result);
+});
+```
+
+### Metrics Collection
+```typescript
+const metrics = detector.getMetrics();
+console.log('Processing time:', metrics.histograms['processing_time']);
+console.log('Cache hit rate:', metrics.counters['cache_hit']);
+```
+
 ## Future Enhancements
 
 ### Machine Learning Integration
@@ -238,3 +344,9 @@ pip install fraud-catcher
 - **Stream Processing**: Real-time transaction streams
 - **Event Sourcing**: Event-driven architecture
 - **CQRS**: Command Query Responsibility Segregation
+
+### Microservices Architecture
+- **Service Decomposition**: Split into microservices
+- **API Gateway**: Centralized API management
+- **Service Discovery**: Dynamic service registration
+- **Circuit Breakers**: Fault tolerance patterns
