@@ -17,8 +17,8 @@ from .algorithms import (
 )
 
 __version__ = "1.0.0"
-__author__ = "Your Name"
-__email__ = "your.email@example.com"
+__author__ = "John Henry"
+__email__ = "john04star@gmail.com"
 
 __all__ = [
     "FraudDetector",

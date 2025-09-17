@@ -20,8 +20,8 @@ def read_requirements():
 setup(
     name="fraud-catcher",
     version="1.0.0",
-    author="Your Name",
-    author_email="your.email@example.com",
+    author="John Henry",
+    author_email="john04star@gmail.com",
     description="A comprehensive fraud detection library for Python",
     long_description=read_readme(),
     long_description_content_type="text/markdown",
