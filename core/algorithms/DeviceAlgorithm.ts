@@ -84,7 +84,7 @@ export class DeviceAlgorithm {
     const components = [
       transaction.userAgent || 'unknown',
       transaction.ipAddress || 'unknown',
-      transaction.metadata?.screenResolution || 'unknown'
+      transaction.metadata?.['screenResolution'] || 'unknown'
     ];
     
     return `device_${this.hashString(components.join('|'))}`;
@@ -97,10 +97,10 @@ export class DeviceAlgorithm {
       deviceId,
       userAgent: transaction.userAgent || '',
       ipAddress: transaction.ipAddress || '',
-      screenResolution: transaction.metadata?.screenResolution,
-      timezone: transaction.metadata?.timezone,
-      language: transaction.metadata?.language,
-      platform: transaction.metadata?.platform,
+      screenResolution: transaction.metadata?.['screenResolution'],
+      timezone: transaction.metadata?.['timezone'],
+      language: transaction.metadata?.['language'],
+      platform: transaction.metadata?.['platform'],
       firstSeen: now,
       lastSeen: now,
       transactionCount: 1,
@@ -153,7 +153,7 @@ export class DeviceAlgorithm {
     return 0;
   }
 
-  private calculateDeviceSharingRisk(deviceId: string, userId: string): number {
+  private calculateDeviceSharingRisk(deviceId: string, _userId: string): number {
     // Check if device is used by multiple users
     const deviceUsers = this.getDeviceUsers(deviceId);
     if (deviceUsers.size > 1) {
@@ -163,11 +163,11 @@ export class DeviceAlgorithm {
     return 0.0;
   }
 
-  private getUserDeviceCount(userId: string): number {
+  private getUserDeviceCount(_userId: string): number {
     return this.userDevices.get(userId)?.size || 0;
   }
 
-  private addUserDevice(userId: string, deviceId: string): void {
+  private addUserDevice(_userId: string, deviceId: string): void {
     if (!this.userDevices.has(userId)) {
       this.userDevices.set(userId, new Set());
     }
@@ -208,7 +208,7 @@ export class DeviceAlgorithm {
     return this.deviceFingerprints.get(deviceId);
   }
 
-  getUserDevices(userId: string): string[] {
+  getUserDevices(_userId: string): string[] {
     return Array.from(this.userDevices.get(userId) || []);
   }
 

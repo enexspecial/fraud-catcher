@@ -52,7 +52,7 @@ export class NetworkAlgorithm {
     this.config = config;
   }
 
-  async analyze(transaction: Transaction, rule: DetectionRule): Promise<number> {
+  async analyze(transaction: Transaction, _rule: DetectionRule): Promise<number> {
     if (!transaction.ipAddress) {
       return 0.0; // No IP data available
     }

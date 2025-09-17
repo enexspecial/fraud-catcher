@@ -23,8 +23,18 @@ from .algorithms import (
 class FraudDetector:
     """Main fraud detection orchestrator."""
     
-    def __init__(self, config: FraudDetectorConfig):
-        self.config = config
+    def __init__(self, config):
+        # Convert dict to FraudDetectorConfig if needed
+        if isinstance(config, dict):
+            self.config = FraudDetectorConfig(
+                rules=config.get('rules', []),
+                thresholds=config.get('thresholds', {}),
+                global_threshold=config.get('global_threshold', 0.7),
+                enable_logging=config.get('enable_logging', False),
+                custom_rules=config.get('custom_rules', [])
+            )
+        else:
+            self.config = config
         self.algorithms: Dict[str, Any] = {}
         self.rules: Dict[str, DetectionRule] = {}
         self._initialize_algorithms()

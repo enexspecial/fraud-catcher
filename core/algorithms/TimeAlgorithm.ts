@@ -28,7 +28,7 @@ export class TimeAlgorithm {
     this.initializeHolidays();
   }
 
-  async analyze(transaction: Transaction, rule: DetectionRule): Promise<number> {
+  async analyze(transaction: Transaction, _rule: DetectionRule): Promise<number> {
     const transactionTime = new Date(transaction.timestamp);
     const timePattern = this.analyzeTimePattern(transactionTime, transaction);
     
@@ -128,7 +128,7 @@ export class TimeAlgorithm {
 
   private extractTimezone(transaction: Transaction): string {
     // Try to extract timezone from various sources
-    if (transaction.metadata?.timezone) {
+    if (transaction.metadata?.['timezone']) {
       return transaction.metadata.timezone;
     }
 

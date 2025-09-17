@@ -144,7 +144,7 @@ export class FraudDetector {
     this.rules.set('velocity', {
       name: 'velocity',
       weight: 0.15,
-      threshold: this.config.thresholds.velocity || 0.8,
+      threshold: this.config.thresholds["velocity"] || 0.8,
       enabled: this.config.rules.includes('velocity'),
       config: {}
     });
@@ -152,7 +152,7 @@ export class FraudDetector {
     this.rules.set('amount', {
       name: 'amount',
       weight: 0.15,
-      threshold: this.config.thresholds.amount || 0.9,
+      threshold: this.config.thresholds["amount"] || 0.9,
       enabled: this.config.rules.includes('amount'),
       config: {}
     });
@@ -160,7 +160,7 @@ export class FraudDetector {
     this.rules.set('location', {
       name: 'location',
       weight: 0.15,
-      threshold: this.config.thresholds.location || 0.7,
+      threshold: this.config.thresholds["location"] || 0.7,
       enabled: this.config.rules.includes('location'),
       config: {}
     });
@@ -168,7 +168,7 @@ export class FraudDetector {
     this.rules.set('device', {
       name: 'device',
       weight: 0.15,
-      threshold: this.config.thresholds.device || 0.8,
+      threshold: this.config.thresholds["device"] || 0.8,
       enabled: this.config.rules.includes('device'),
       config: {}
     });
@@ -176,7 +176,7 @@ export class FraudDetector {
     this.rules.set('time', {
       name: 'time',
       weight: 0.10,
-      threshold: this.config.thresholds.time || 0.6,
+      threshold: this.config.thresholds["time"] || 0.6,
       enabled: this.config.rules.includes('time'),
       config: {}
     });
@@ -184,7 +184,7 @@ export class FraudDetector {
     this.rules.set('merchant', {
       name: 'merchant',
       weight: 0.15,
-      threshold: this.config.thresholds.merchant || 0.7,
+      threshold: this.config.thresholds["merchant"] || 0.7,
       enabled: this.config.rules.includes('merchant'),
       config: {}
     });
@@ -192,7 +192,7 @@ export class FraudDetector {
     this.rules.set('behavioral', {
       name: 'behavioral',
       weight: 0.10,
-      threshold: this.config.thresholds.behavioral || 0.6,
+      threshold: this.config.thresholds["behavioral"] || 0.6,
       enabled: this.config.rules.includes('behavioral'),
       config: {}
     });
@@ -200,7 +200,7 @@ export class FraudDetector {
     this.rules.set('network', {
       name: 'network',
       weight: 0.10,
-      threshold: this.config.thresholds.network || 0.8,
+      threshold: this.config.thresholds["network"] || 0.8,
       enabled: this.config.rules.includes('network'),
       config: {}
     });
@@ -208,7 +208,7 @@ export class FraudDetector {
     this.rules.set('ml', {
       name: 'ml',
       weight: 0.20,
-      threshold: this.config.thresholds.ml || 0.5,
+      threshold: this.config.thresholds["ml"] || 0.5,
       enabled: this.config.rules.includes('ml'),
       config: {}
     });
@@ -264,8 +264,11 @@ export class FraudDetector {
       transactionId: transaction.id,
       riskScore: Math.min(riskScore, 1.0),
       isFraudulent,
+      isFraud: isFraudulent,
       confidence,
       triggeredRules,
+      processingTime,
+      timestamp: new Date(),
       details: {
         algorithm: 'multi-algorithm',
         processingTime,

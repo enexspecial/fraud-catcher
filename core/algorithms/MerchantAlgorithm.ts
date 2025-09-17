@@ -37,7 +37,7 @@ export class MerchantAlgorithm {
     this.config = config;
   }
 
-  async analyze(transaction: Transaction, rule: DetectionRule): Promise<number> {
+  async analyze(transaction: Transaction, _rule: DetectionRule): Promise<number> {
     if (!transaction.merchantId) {
       return 0.0; // No merchant data
     }
@@ -92,7 +92,7 @@ export class MerchantAlgorithm {
     if (!profile) {
       profile = {
         merchantId,
-        merchantName: transaction.metadata?.merchantName,
+        merchantName: transaction.metadata?.['merchantName'],
         category,
         riskScore: 0.0,
         transactionCount: 0,
