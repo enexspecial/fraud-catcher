@@ -13,7 +13,7 @@ export class AmountAlgorithm {
     this.config = config;
   }
 
-  async analyze(transaction: Transaction, rule: DetectionRule): Promise<number> {
+  async analyze(transaction: Transaction, _rule: DetectionRule): Promise<number> {
     const amount = transaction.amount;
     const currency = transaction.currency || 'USD';
     

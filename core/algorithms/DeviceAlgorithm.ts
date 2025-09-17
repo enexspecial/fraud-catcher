@@ -32,7 +32,7 @@ export class DeviceAlgorithm {
     this.config = config;
   }
 
-  async analyze(transaction: Transaction, rule: DetectionRule): Promise<number> {
+  async analyze(transaction: Transaction, _rule: DetectionRule): Promise<number> {
     if (!transaction.deviceId && !transaction.userAgent && !transaction.ipAddress) {
       return 0.0; // No device data available
     }

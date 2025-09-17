@@ -16,7 +16,7 @@ export class LocationAlgorithm {
     this.config = config;
   }
 
-  async analyze(transaction: Transaction, rule: DetectionRule): Promise<number> {
+  async analyze(transaction: Transaction, _rule: DetectionRule): Promise<number> {
     if (!transaction.location) {
       return 0.0; // No location data, no risk
     }

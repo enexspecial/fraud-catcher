@@ -18,6 +18,8 @@ export interface IAlgorithmPlugin {
     name: string;
     version: string;
     description: string;
+    author?: string;
     configSchema: Record<string, any>;
+    dependencies?: string[];
   };
 }

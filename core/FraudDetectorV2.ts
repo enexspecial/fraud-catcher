@@ -118,13 +118,21 @@ export class FraudDetectorV2 {
       
       // Generate result
       const result: FraudResult = {
+        transactionId: transaction.id,
+        isFraudulent: finalScore >= (this.config.globalThreshold || 0.7),
         isFraud: finalScore >= (this.config.globalThreshold || 0.7),
         riskScore: finalScore,
         confidence: this.calculateConfidence(algorithmResults),
         triggeredRules: this.getTriggeredRules(algorithmResults),
         recommendations: this.generateRecommendations(algorithmResults),
         processingTime: Date.now() - startTime,
-        timestamp: new Date()
+        timestamp: new Date(),
+        details: {
+          algorithm: 'composite',
+          processingTime: Date.now() - startTime,
+          timestamp: new Date(),
+          algorithmScores: Object.fromEntries(algorithmResults)
+        }
       };
 
       // Cache result
@@ -328,7 +336,10 @@ export class FraudDetectorV2 {
 
   private generateCacheKey(transaction: Transaction): string {
     // Simple cache key generation - could be improved
-    return `fraud_${transaction.userId}_${transaction.amount}_${transaction.timestamp.getTime()}`;
+    const timestamp = transaction.timestamp instanceof Date 
+      ? transaction.timestamp.getTime() 
+      : new Date(transaction.timestamp).getTime();
+    return `fraud_${transaction.userId}_${transaction.amount}_${timestamp}`;
   }
 
   private recordMetrics(metricName: string, value: number, labels?: Record<string, string>): void {

@@ -26,14 +26,18 @@ export interface FraudResult {
   transactionId: string;
   riskScore: number; // 0.0 - 1.0
   isFraudulent: boolean;
+  isFraud: boolean; // Alias for compatibility
   confidence: number; // 0.0 - 1.0
   triggeredRules: string[];
+  processingTime: number; // Moved to top level for easier access
   details: {
     algorithm: string;
     processingTime: number;
     timestamp: Date;
+    algorithmScores?: Record<string, number>;
   };
   recommendations?: string[];
+  timestamp: Date; // Added for consistency
 }
 
 export interface DetectionRule {

@@ -29,23 +29,18 @@ pip install fraud-catcher
 
 ## Quick Start
 
-### Node.js
+### Node.js/TypeScript
 ```typescript
 import { FraudDetector } from 'fraud-catcher';
 
 const detector = new FraudDetector({
-  rules: ['velocity', 'amount', 'location', 'device', 'time', 'merchant', 'behavioral', 'network', 'ml'],
+  rules: ['velocity', 'amount', 'location'],
   thresholds: {
     velocity: 0.8,
     amount: 0.9,
-    location: 0.7,
-    device: 0.8,
-    time: 0.6,
-    merchant: 0.7,
-    behavioral: 0.6,
-    network: 0.8,
-    ml: 0.5
-  }
+    location: 0.7
+  },
+  globalThreshold: 0.7
 });
 
 const result = await detector.analyze({
@@ -54,22 +49,11 @@ const result = await detector.analyze({
   amount: 1500,
   currency: 'USD',
   timestamp: new Date(),
-  location: { lat: 40.7128, lng: -74.0060, country: 'US' },
-  merchantId: 'merchant_456',
-  merchantCategory: 'electronics',
-  deviceId: 'device_789',
-  ipAddress: '192.168.1.1',
-  userAgent: 'Mozilla/5.0...',
-  metadata: {
-    screenResolution: '1920x1080',
-    timezone: 'America/New_York'
-  }
+  location: { lat: 40.7128, lng: -74.0060, country: 'US' }
 });
 
 console.log(result.riskScore); // 0.0 - 1.0
 console.log(result.isFraudulent); // boolean
-console.log(result.triggeredRules); // ['amount', 'device', ...]
-console.log(result.recommendations); // ['Review transaction amount...', ...]
 ```
 
 ### Python
@@ -78,18 +62,13 @@ from fraud_catcher import FraudDetector, Transaction, Location
 from datetime import datetime
 
 detector = FraudDetector({
-    'rules': ['velocity', 'amount', 'location', 'device', 'time', 'merchant', 'behavioral', 'network', 'ml'],
+    'rules': ['velocity', 'amount', 'location'],
     'thresholds': {
         'velocity': 0.8,
         'amount': 0.9,
-        'location': 0.7,
-        'device': 0.8,
-        'time': 0.6,
-        'merchant': 0.7,
-        'behavioral': 0.6,
-        'network': 0.8,
-        'ml': 0.5
-    }
+        'location': 0.7
+    },
+    'global_threshold': 0.7
 })
 
 transaction = Transaction(
@@ -98,25 +77,20 @@ transaction = Transaction(
     amount=1500.0,
     currency='USD',
     timestamp=datetime.now(),
-    location=Location(lat=40.7128, lng=-74.0060, country='US'),
-    merchant_id='merchant_456',
-    merchant_category='electronics',
-    device_id='device_789',
-    ip_address='192.168.1.1',
-    user_agent='Mozilla/5.0...',
-    metadata={
-        'screen_resolution': '1920x1080',
-        'timezone': 'America/New_York'
-    }
+    location=Location(lat=40.7128, lng=-74.0060, country='US')
 )
 
 result = await detector.analyze(transaction)
-
 print(result.risk_score)  # 0.0 - 1.0
 print(result.is_fraudulent)  # boolean
-print(result.triggered_rules)  # ['amount', 'device', ...]
-print(result.recommendations)  # ['Review transaction amount...', ...]
 ```
+
+## Documentation
+
+- 📚 **[API Documentation](docs/API.md)** - Complete API reference
+- 🚀 **[Usage Guide](docs/USAGE.md)** - Detailed usage examples and best practices
+- 🛠️ **[Installation Guide](docs/INSTALLATION.md)** - Step-by-step installation instructions
+- 🏗️ **[Architecture](ARCHITECTURE.md)** - System architecture and design patterns
 
 ## Detection Algorithms
 

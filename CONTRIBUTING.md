@@ -42,12 +42,99 @@ python -m pytest
 - Follow TypeScript best practices
 - Use meaningful variable and function names
 - Add JSDoc comments for public APIs
+- Use `_` prefix for unused parameters
+- Prefer `const` over `let`, avoid `var`
+- Use async/await over Promises
+- Export types and interfaces explicitly
 
 ### Python
 - Follow PEP 8 style guide
 - Use Black for code formatting
 - Use type hints for all functions
 - Add docstrings for all public methods
+- Use `_` prefix for unused parameters
+- Prefer f-strings over .format()
+- Use dataclasses for data structures
+- Follow async/await patterns consistently
+
+## Code Quality Standards
+
+### TypeScript/JavaScript
+```typescript
+// ✅ Good
+export interface UserConfig {
+  readonly id: string;
+  readonly name: string;
+  readonly email: string;
+}
+
+export class UserService {
+  private readonly config: UserConfig;
+  
+  constructor(config: UserConfig) {
+    this.config = config;
+  }
+  
+  /**
+   * Creates a new user with the given configuration
+   * @param userData - User data to create
+   * @returns Promise resolving to created user
+   */
+  async createUser(userData: CreateUserRequest): Promise<User> {
+    // Implementation
+  }
+}
+
+// ❌ Bad
+export class userService {
+  config;
+  
+  constructor(config) {
+    this.config = config;
+  }
+  
+  createUser(userData) {
+    // Implementation
+  }
+}
+```
+
+### Python
+```python
+# ✅ Good
+from typing import Dict, List, Optional
+from dataclasses import dataclass
+
+@dataclass
+class UserConfig:
+    id: str
+    name: str
+    email: str
+
+class UserService:
+    def __init__(self, config: UserConfig) -> None:
+        self.config = config
+    
+    async def create_user(self, user_data: CreateUserRequest) -> User:
+        """
+        Creates a new user with the given configuration.
+        
+        Args:
+            user_data: User data to create
+            
+        Returns:
+            Created user instance
+        """
+        # Implementation
+
+# ❌ Bad
+class userService:
+    def __init__(self, config):
+        self.config = config
+    
+    def create_user(self, user_data):
+        # Implementation
+```
 
 ## Testing
 

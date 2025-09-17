@@ -7,7 +7,7 @@ export interface MetricValue {
 export interface CounterMetric {
   name: string;
   value: number;
-  labels?: Record<string, string>;
+  labels?: Record<string, string> | undefined;
 }
 
 export interface HistogramMetric {
@@ -15,13 +15,13 @@ export interface HistogramMetric {
   buckets: Record<string, number>;
   sum: number;
   count: number;
-  labels?: Record<string, string>;
+  labels?: Record<string, string> | undefined;
 }
 
 export interface GaugeMetric {
   name: string;
   value: number;
-  labels?: Record<string, string>;
+  labels?: Record<string, string> | undefined;
 }
 
 export class MetricsCollector {
@@ -58,7 +58,7 @@ export class MetricsCollector {
       // Update buckets (simplified implementation)
       for (const [bucket, count] of Object.entries(existing.buckets)) {
         if (value <= parseFloat(bucket)) {
-          existing.buckets[bucket] = count + 1;
+          (existing.buckets as any)[bucket] = count + 1;
         }
       }
     } else {

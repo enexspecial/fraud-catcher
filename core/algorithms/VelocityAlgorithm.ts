@@ -1,4 +1,4 @@
-import { Transaction, FraudResult, DetectionRule } from '../models/Transaction';
+import { Transaction, DetectionRule } from '../models/Transaction';
 
 export interface VelocityConfig {
   timeWindow: number; // in minutes
@@ -14,7 +14,7 @@ export class VelocityAlgorithm {
     this.config = config;
   }
 
-  async analyze(transaction: Transaction, rule: DetectionRule): Promise<number> {
+  async analyze(transaction: Transaction, _rule: DetectionRule): Promise<number> {
     const userId = transaction.userId;
     const now = new Date(transaction.timestamp);
     const timeWindow = this.config.timeWindow * 60 * 1000; // Convert to milliseconds

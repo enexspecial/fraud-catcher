@@ -5,7 +5,7 @@ export interface PluginMetadata {
   name: string;
   version: string;
   description: string;
-  author: string;
+  author?: string;
   configSchema: Record<string, any>;
   dependencies?: string[];
 }
