@@ -21,7 +21,22 @@
     "risk",
     "scoring",
     "machine-learning",
-    "typescript"
+    "typescript",
+    "nodejs",
+    "real-time",
+    "analytics",
+    "payment",
+    "ecommerce",
+    "fintech",
+    "cybersecurity",
+    "algorithms",
+    "velocity",
+    "location",
+    "device",
+    "behavioral",
+    "network",
+    "ml",
+    "ai"
   ],
   "author": "John Henry <john04star@gmail.com>",
   "license": "MIT",
@@ -39,6 +54,13 @@
     "README.md",
     "LICENSE"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/sponsors/enexspecial"
+  },
   "engines": {
     "node": ">=14.0.0"
   },
