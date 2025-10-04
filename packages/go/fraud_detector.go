@@ -151,6 +151,28 @@ func (fd *FraudDetector) registerDefaultAlgorithms() {
 	behavioralAlgorithm := algorithms.NewBehavioralAlgorithm(behavioralConfig)
 	fd.algorithmManager.RegisterAlgorithm(behavioralAlgorithm)
 
+	// Code Analysis Algorithm
+	codeAnalysisConfig := algorithms.CodeAnalysisConfig{
+		EnableStaticAnalysis:     true,
+		EnableDynamicAnalysis:    false,
+		EnableBehavioralAnalysis: true,
+		EnableDependencyAnalysis: true,
+		EnablePatternMatching:    true,
+		EnableMLAnalysis:         false,
+		SeverityThresholds: map[string]float64{
+			"critical": 0.9,
+			"high":     0.7,
+			"medium":   0.5,
+			"low":      0.3,
+		},
+		LanguageSupport:        []string{"php", "javascript", "python", "java", "go"},
+		ExcludePatterns:        []string{"*.test.js", "*.spec.js", "node_modules/*"},
+		MaxFileSize:            1024 * 1024, // 1MB
+		EnableRealTimeAnalysis: true,
+	}
+	codeAnalysisAlgorithm := algorithms.NewCodeAnalysisAlgorithm(codeAnalysisConfig)
+	fd.algorithmManager.RegisterAlgorithm(codeAnalysisAlgorithm)
+
 	// Set thresholds from config
 	for rule, threshold := range fd.config.Thresholds {
 		if algorithm, exists := fd.algorithmManager.GetAlgorithm(rule); exists {

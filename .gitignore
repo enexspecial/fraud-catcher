@@ -1,21 +1,16 @@
+# Focus on Node.js package only - ignore other language implementations
+packages/python/
+packages/php/
+packages/go/
+
 # Dependencies
 node_modules/
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
+packages/node/node_modules/
 
 # Build outputs
 dist/
 build/
-*.egg-info/
-*.egg
+packages/node/dist/
 
 # IDE
 .vscode/
@@ -38,8 +33,7 @@ yarn-error.log*
 # Coverage
 coverage/
 .nyc_output/
-.coverage
-htmlcov/
+.jest/
 
 # Environment variables
 .env
@@ -53,11 +47,12 @@ tmp/
 temp/
 *.tmp
 
-# Package manager
-package-lock.json
+# Package manager (keep package-lock.json for Node.js)
+packages/node/package-lock.json
 yarn.lock
-Pipfile.lock
+
+# TypeScript
+*.tsbuildinfo
 
 # Testing
-.pytest_cache/
 .jest/

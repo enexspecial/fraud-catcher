@@ -2,18 +2,19 @@
 
 ## Overview
 
-FraudCatcher is a comprehensive fraud detection library designed to work across multiple platforms (Node.js and Python) while sharing core detection logic. The architecture is built with modularity, extensibility, and performance in mind using modern design patterns including plugin architecture, dependency injection, event-driven design, and comprehensive caching.
+FraudCatcher is a comprehensive fraud detection library designed to work across multiple platforms (Node.js, Python, PHP, and Go) while sharing core detection logic. The architecture is built with simplicity, modularity, and global coverage in mind, supporting 100+ countries and 50+ currencies.
 
 ## Core Architecture
 
 ### Shared Core Logic (`/core/`)
 
-The core directory contains the shared business logic that powers both the Node.js and Python packages:
+The core directory contains the shared business logic that powers all platform packages:
 
 ```
 core/
 ├── models/
-│   └── Transaction.ts          # Data models and interfaces
+│   ├── Transaction.ts          # Data models and interfaces
+│   └── Country.ts              # Country data and risk profiles
 ├── algorithms/
 │   ├── VelocityAlgorithm.ts    # Transaction velocity detection
 │   ├── AmountAlgorithm.ts      # Amount-based fraud detection
@@ -24,20 +25,11 @@ core/
 │   ├── BehavioralAlgorithm.ts  # Behavioral analysis
 │   ├── NetworkAlgorithm.ts     # Network security analysis
 │   └── MLAlgorithm.ts          # Machine learning integration
-├── interfaces/
-│   └── IFraudAlgorithm.ts      # Algorithm interface for plugins
-├── events/
-│   └── FraudEventBus.ts        # Event-driven architecture
-├── container/
-│   └── ServiceContainer.ts     # Dependency injection container
-├── cache/
-│   └── CacheManager.ts         # Intelligent caching system
-├── metrics/
-│   └── MetricsCollector.ts     # Performance monitoring
-├── plugins/
-│   └── PluginManager.ts        # Plugin system management
-├── FraudDetector.ts            # Legacy orchestrator class
-└── FraudDetectorV2.ts          # Enhanced orchestrator with new architecture
+├── data/
+│   └── Countries.ts            # Global country database
+├── services/
+│   └── CountryService.ts       # Country risk and currency services
+└── FraudDetector.ts            # Main orchestrator class
 ```
 
 ### Package Structure
