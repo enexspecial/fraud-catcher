@@ -1,6 +1,6 @@
 {
   "name": "fraud-catcher",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A comprehensive fraud detection library for Node.js and TypeScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
