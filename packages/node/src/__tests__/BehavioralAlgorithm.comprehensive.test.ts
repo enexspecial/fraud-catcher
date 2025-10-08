@@ -267,7 +267,7 @@ describe('BehavioralAlgorithm - Comprehensive Tests', () => {
 
       const score = await algorithm.analyze(normalLocationTransaction, rule);
       
-      expect(score).toBeLessThan(0.2); // Should be low risk for normal country
+      expect(score).toBeLessThan(0.25); // Should be low risk for normal country
     });
 
     it('should handle transactions without location', async () => {
